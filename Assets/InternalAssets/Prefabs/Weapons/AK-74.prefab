@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenShots: 0.1
   bulletPrefab: {fileID: 8614511761918072308, guid: 656043477e7235845ae2e4c93c82aa5e, type: 3}
-  ammoType: {fileID: 0}
+  ammoType: {fileID: 11400000, guid: 671c4cbf682f1aa4d89ccac525189b01, type: 2}
   bulletSpawnPoint: {fileID: 2018738415342789469}
   bulletContainer: {fileID: 0}
 --- !u!1 &8218050744405492876

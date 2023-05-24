@@ -10,18 +10,24 @@ public class Gun : Weapon
     [SerializeField] private float delayBetweenShots = 0.25f;
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private Ammo ammoType;
+    [SerializeField] private int bulletsPerShot = 1;
 
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] Transform bulletContainer;
 
     private float timer;
 
+    
     public override void Attack()
     {
         if (timer <= 0)
         {
-            GenerateBullet();
-            timer = delayBetweenShots;
+            if (ammoType.CurrentCount - bulletsPerShot > 0)
+            {
+                ammoType.CurrentCount -= bulletsPerShot;
+                GenerateBullet();
+                timer = delayBetweenShots;
+            }
         }
     }
 

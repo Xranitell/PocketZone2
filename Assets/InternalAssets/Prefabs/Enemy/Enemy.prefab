@@ -198,6 +198,10 @@ MonoBehaviour:
     target: {fileID: 0}
   idleEnemyState:
     character: {fileID: 0}
+  Loot:
+  - {fileID: 11400000, guid: 671c4cbf682f1aa4d89ccac525189b01, type: 2}
+  - {fileID: 11400000, guid: c96e49dd220a2e04bb58434600769dd2, type: 2}
+  - {fileID: 11400000, guid: 9709fe1a449562349aaf265df8d3a353, type: 2}
 --- !u!210 &38227180172222182
 SortingGroup:
   m_ObjectHideFlags: 0

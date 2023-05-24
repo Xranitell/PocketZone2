@@ -1,7 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using Vector2 = System.Numerics.Vector2;
 
 public class Enemy : Entity, ITargetable, IWatcher
@@ -15,7 +17,6 @@ public class Enemy : Entity, ITargetable, IWatcher
     public float attackDistance = 0.5f;
     public float seeDistance = 2f;
     public float speed = 2f;
-    
 
     [BoxGroup("StateMachine")] private EnemyState currentState;
     [BoxGroup("StateMachine")] private EnemyState startState;
@@ -23,6 +24,8 @@ public class Enemy : Entity, ITargetable, IWatcher
     [BoxGroup("StateMachine")][SerializeField] private FollowEnemyState followEnemyState;
     [BoxGroup("StateMachine")][SerializeField] private IdleEnemyState idleEnemyState;
     
+    
+    [Expandable]public List<Item> Loot = new List<Item>();
     public float SeeDistance => seeDistance;
 
     protected override void Awake()
@@ -33,6 +36,8 @@ public class Enemy : Entity, ITargetable, IWatcher
         followEnemyState = new FollowEnemyState();
         idleEnemyState = new IdleEnemyState();
         startState = idleEnemyState;
+        
+        OnDead += DropLoot;
     }
 
     private void Start()
@@ -77,7 +82,6 @@ public class Enemy : Entity, ITargetable, IWatcher
     private void OnDisable()
     {
         EnemySpawner.enemyPull.PushToPull(this);
-        
     }
     public void MoveTo(Vector3 target)
     {
@@ -92,6 +96,16 @@ public class Enemy : Entity, ITargetable, IWatcher
         transform.rotation = rot;
     }
 
-    
+    protected void DropLoot()
+    {
+        foreach (var item in Loot)
+        {
+            float randomValue = (float)Random.Range(0f,1f);
+            if (randomValue <= item.DropChance)
+            {
+                item.CreateDropItem(this.transform.position);
+            }
+        }
+    }
 }
 

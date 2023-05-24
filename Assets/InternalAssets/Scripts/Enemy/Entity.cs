@@ -1,24 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public abstract class Entity : MonoBehaviour, IDamaged
 {
-    public string name;
     public float maxHealth;
     public float currentHealth;
 
     private UnityAction OnDamaged;
-    private UnityAction OnDead;
-    
+    protected UnityAction OnDead;
+
     protected virtual void Awake()
     {
         currentHealth = maxHealth;
     }
 
-    public void GetDamage(int damage)
+    public virtual void GetDamage(int damage)
     {
         currentHealth -= damage;
         OnDamaged?.Invoke();
