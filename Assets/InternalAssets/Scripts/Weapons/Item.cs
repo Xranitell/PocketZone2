@@ -1,47 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public delegate void ItemUpdate();
+
 [CreateAssetMenu(menuName = "Items/SimpleItem")]
+[Serializable]
 public class Item : ScriptableObject, IDroppable
 {
-    public delegate void ItemUpdate(Item item);
 
     public event ItemUpdate OnItemDataUpdate;
     
     public string name;
     public string description;
-    public Sprite sprite;
-
-
+    [JsonIgnore]public Sprite sprite;
+    
     private int _currentCount;
-    public int CurrentCount
+    [ShowNativeProperty] public int CurrentCount
     {
         get => _currentCount;
         set
         {
-            if (value > maxCount)
-            {
-                _currentCount = maxCount;
-            }
-            else
-            {
-                _currentCount = value;
-            }
-            OnItemDataUpdate?.Invoke(this);
+            _currentCount = value > maxCount ? maxCount : value;
+            OnItemDataUpdate?.Invoke();
         }
     }
 
     public bool EnableInInventory => _currentCount > 0 ? true : false;
-    public DropItem dropItemPrefab;
+    [JsonIgnore] public DropItem dropItemPrefab;
 
-    [SerializeField] [Range(0,1)]protected float dropChance = 1f;
+    [SerializeField] [Range(0,1)] protected float dropChance = 1f;
     
     public bool isStackable = true;
-    [EnableIf("isStackable")] public int maxCount = 1;
-    [EnableIf("isStackable")] public int dropCount = 1;
+    public int maxCount = 1;
+    public int dropCount = 1;
+    
     public float DropChance => dropChance;
     
     public DropItem CreateDropItem(Vector3 position)

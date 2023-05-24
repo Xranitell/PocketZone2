@@ -16,8 +16,10 @@ public class EnemySpawner : MonoBehaviour
     [BoxGroup("Spawn params")] [SerializeField] private AnimationCurve delayBetweenWaves;
     [BoxGroup("Spawn params")] [SerializeField] private AnimationCurve countInWave;
     [BoxGroup("Spawn params")] [SerializeField] private float additiveOffsetRadius = 0.1f;
-
+    [BoxGroup("Spawn params")][SerializeField] private int maxEnemyCount = 10;
+    
     [SerializeField] private Transform enemyContainer;
+    
     private void Awake()
     {
         StartCoroutine(SpawnEnemies());
@@ -27,12 +29,16 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
+            
             int countInWave = Mathf.RoundToInt(this.countInWave.Evaluate(Time.time));
             /////////////////////////////////////
             Vector3 randomPoint = Vector3.zero;
             ////////////////////////////////////
+            
+            
             for (int i = 0; i < countInWave; i++)
             {
+                if (EnemiesList.Count >= maxEnemyCount) continue;
                 Enemy enemyPrefab = GetRandomByPriority();
                 SpawnEnemy(enemyPrefab,randomPoint);
             }

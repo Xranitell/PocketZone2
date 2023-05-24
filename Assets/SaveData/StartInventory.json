@@ -1,0 +1,3 @@
+[{"name":"Патроны для автомата","description":"Патроны для АК","isStackable":true,"maxCount":300,"dropCount":30,"CurrentCount":50,"EnableInInventory":true,"DropChance":0.2,"hideFlags":0},
+  {"name":"Бронежелет","description":"Для тела","isStackable":false,"maxCount":1,"dropCount":1,"CurrentCount":0,"EnableInInventory":true,"DropChance":0.7,"hideFlags":0},
+  {"name":"Патроны для пистолета","description":"Патроны малого калибра","isStackable":true,"maxCount":100,"dropCount":40,"CurrentCount":30,"EnableInInventory":true,"DropChance":0.7,"hideFlags":0}]

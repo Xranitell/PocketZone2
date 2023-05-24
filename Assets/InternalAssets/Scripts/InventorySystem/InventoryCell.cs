@@ -25,7 +25,7 @@ public class InventoryCell : MonoBehaviour
     {
         OnCellClick += InventorySystem.Instance.CellClickHandler;
         if(_itemInCell != null)
-        _itemInCell.OnItemDataUpdate += ConfigureCell;
+            _itemInCell.OnItemDataUpdate += InventorySystem.Instance.LoadInventory;
     }
 
     public void OnClickEvent()

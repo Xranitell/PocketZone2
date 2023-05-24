@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5674e78850edbf4fbf5c8b67587871e, type: 3}
   m_Name: PistolAmmo
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: "\u041F\u0430\u0442\u0440\u043E\u043D\u044B \u0434\u043B\u044F \u043F\u0438\u0441\u0442\u043E\u043B\u0435\u0442\u0430"
+  description: "\u043F\u0430\u0442\u0440\u043E\u043D\u044B \u043C\u0430\u043B\u043E\u0433\u043E
+    \u043A\u0430\u043B\u0438\u0431\u0440\u0430"
   sprite: {fileID: 21300000, guid: d45f0cae013abb84688afe6e4bc52845, type: 3}
   dropItemPrefab: {fileID: 1018620839227304581, guid: 0f279c3dd24896a42ae5b237ee1277ab, type: 3}
   dropChance: 0.7

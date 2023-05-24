@@ -8,6 +8,8 @@ using Vector2 = System.Numerics.Vector2;
 
 public class Enemy : Entity, ITargetable, IWatcher
 {
+    public static List<Enemy> ActiveMonsters = new List<Enemy>();
+
     [BoxGroup("Components")] [SerializeField] private GameObject targetMark;
     [BoxGroup("Components")] public Rigidbody2D rigidbody;
     [BoxGroup("Components")] public SearchTargets searchTargets;
@@ -69,7 +71,6 @@ public class Enemy : Entity, ITargetable, IWatcher
         currentState.Init();
     }
 
-
     public void ChooseAsTarget()
     {
         targetMark.SetActive(true);
@@ -78,9 +79,16 @@ public class Enemy : Entity, ITargetable, IWatcher
     {
         targetMark.SetActive(false);
     }
-    
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        ActiveMonsters.Add(this);
+    }
+
     private void OnDisable()
     {
+        ActiveMonsters.Remove(this);
         EnemySpawner.enemyPull.PushToPull(this);
     }
     public void MoveTo(Vector3 target)

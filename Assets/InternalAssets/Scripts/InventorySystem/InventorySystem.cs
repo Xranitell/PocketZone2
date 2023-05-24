@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public delegate void VoidMethod(InventoryCell cell);
+
+[Serializable]
 public class InventorySystem : MonoBehaviour
 {
     public List<InventoryCell> cells = new List<InventoryCell>();
@@ -23,7 +25,6 @@ public class InventorySystem : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        cells = GetComponentsInChildren<InventoryCell>().ToList();
         allItemsList = Resources.LoadAll<Item>("Items").ToList();
         LoadInventory();
     }
@@ -67,5 +68,6 @@ public class InventorySystem : MonoBehaviour
     {
         infoPanel.SetActive(false);
         selectedCell.ClearCell();
+        LoadInventory();
     }
 }
