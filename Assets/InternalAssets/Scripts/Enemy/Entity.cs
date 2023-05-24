@@ -29,4 +29,9 @@ public abstract class Entity : MonoBehaviour, IDamaged
             gameObject.SetActive(false);
         }
     }
+
+    protected virtual void OnEnable()
+    {
+        currentHealth = maxHealth;
+    }
 }

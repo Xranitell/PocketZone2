@@ -19,7 +19,7 @@ public class ObjectPull<T>
     }
     public T GetFromPull(T objectType)
     {
-        var obj = Pull.Find(x=> x.Equals(objectType));
+        var obj = Pull.Find(x=> (objectType as GameObject)?.name == (x as GameObject)?.name);
         Pull.RemoveAt(0);
         return obj;
     }

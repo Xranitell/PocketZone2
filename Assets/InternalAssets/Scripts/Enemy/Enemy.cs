@@ -9,8 +9,7 @@ public class Enemy : Entity, ITargetable, IWatcher
     [BoxGroup("Components")] [SerializeField] private GameObject targetMark;
     [BoxGroup("Components")] public Rigidbody2D rigidbody;
     [BoxGroup("Components")] public SearchTargets searchTargets;
-    public static ObjectPull<Enemy> EnemyPull = new ObjectPull<Enemy>();
-    
+
     [Header("Stats")]
     public float spawnPriority = 50;
     public float attackDistance = 0.5f;
@@ -77,7 +76,8 @@ public class Enemy : Entity, ITargetable, IWatcher
     
     private void OnDisable()
     {
-        EnemyPull.PushToPull(this);
+        EnemySpawner.enemyPull.PushToPull(this);
+        
     }
     public void MoveTo(Vector3 target)
     {

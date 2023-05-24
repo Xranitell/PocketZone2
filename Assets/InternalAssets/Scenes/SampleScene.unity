@@ -44933,6 +44933,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250336372}
+  - component: {fileID: 1250336373}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -44955,6 +44956,68 @@ Transform:
   m_Father: {fileID: 502642053}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250336373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250336371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0b59640d32da94486e8b73f1b06eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBetweenWaves:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 10.177588
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 64.92986
+      value: 1.9635797
+      inSlope: 0.0017728156
+      outSlope: 0.0017728156
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17130134
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  countInWave:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.49966973
+      value: 0.9795178
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 60
+      value: 7
+      inSlope: 0.33283076
+      outSlope: 0.33283076
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09427853
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  additiveOffsetRadius: 0.4
+  enemyContainer: {fileID: 0}
 --- !u!1 &1303441711
 GameObject:
   m_ObjectHideFlags: 0
