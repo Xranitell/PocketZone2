@@ -3,16 +3,24 @@ using UnityEngine;
 
 public class ObjectPull<T>
 {
-    public readonly Queue<T> _pull = new Queue<T>();
-
+    public readonly List<T> Pull = new List<T>();
+    public int Count => Pull.Count;
+    
     public void PushToPull(T pullableObject)
     {
-         _pull.Enqueue(pullableObject);
+         Pull.Add(pullableObject);
     }
 
     public T GetFromPull()
     {
-        var obj = _pull.Dequeue();
+        var obj = Pull[0];
+        Pull.RemoveAt(0);
+        return obj;
+    }
+    public T GetFromPull(T objectType)
+    {
+        var obj = Pull.Find(x=> x.Equals(objectType));
+        Pull.RemoveAt(0);
         return obj;
     }
 }

@@ -7,11 +7,13 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rigidbody2D;
     public float speed = 1f;
-    public float damage;
+    public int damage = 3;
     public float bulletLifeTime = 2f;
     private float timer;
 
     public Gun parentGun;
+    
+    public string ObjectName { get; set; }
     private void Update()
     {
         Move();
@@ -32,6 +34,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             ReturnToPull();
+            other.gameObject.GetComponent<Entity>().GetDamage(damage);
         }
     }
     
@@ -51,6 +54,8 @@ public class Bullet : MonoBehaviour
         Debug.Log("BulletSpawn!");
         timer = bulletLifeTime;
     }
+
+    
 }
 
 

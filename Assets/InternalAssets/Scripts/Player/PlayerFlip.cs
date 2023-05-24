@@ -41,17 +41,8 @@ public class PlayerFlip : MonoBehaviour
     
     private void Flip(bool isRight)
     {
-        if (isRight)
-        {
-            Quaternion rot = transform.rotation;
-            rot.y = 0;
-            transform.rotation = rot;
-        }
-        else
-        {
-            Quaternion rot = transform.rotation;
-            rot.y = 180;
-            transform.rotation = rot;
-        }
+        Quaternion rot = transform.rotation;
+        rot.y = isRight ? 0 : 180;
+        transform.rotation = rot;
     }
 }

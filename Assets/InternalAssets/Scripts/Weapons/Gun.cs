@@ -33,7 +33,7 @@ public class Gun : Weapon
     
     private void GenerateBullet()
     {
-        var bullet = bulletPull._pull.Count > 0 ? bulletPull.GetFromPull() : Instantiate(bulletPrefab,bulletSpawnPoint.position,bulletSpawnPoint.rotation ,bulletContainer);
+        var bullet = bulletPull.Pull.Count > 0 ? bulletPull.GetFromPull() : Instantiate(bulletPrefab,bulletSpawnPoint.position,bulletSpawnPoint.rotation ,bulletContainer);
         
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = bulletSpawnPoint.rotation;

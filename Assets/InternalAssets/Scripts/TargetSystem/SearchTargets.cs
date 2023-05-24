@@ -1,17 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(IWatcher))]
 public class SearchTargets : MonoBehaviour
 {
-    public float detectionRadius = 5f;
     public string targetTag = "Enemy";
 
     public GameObject currentTarget;
+    private IWatcher _watcher;
+    private void Awake()
+    {
+        _watcher = GetComponent<IWatcher>();
+    }
 
     private void Update()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _watcher.SeeDistance);
         GameObject[] targets = FilterTargetsByTag(colliders);
         currentTarget = GetClosestTarget(targets);
     }
@@ -51,8 +57,10 @@ public class SearchTargets : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
+        if(_watcher is null) return;
+        
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere(transform.position, _watcher.SeeDistance);
     }
 
     public Vector3 GetDifferenceToTarget()
