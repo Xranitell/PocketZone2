@@ -51,7 +51,6 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("BulletSpawn!");
         timer = bulletLifeTime;
     }
 

@@ -1,34 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using NaughtyAttributes;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private void Start()
+    public static GameManager Instance { get;private set; }
+
+    private void Awake()
     {
-        var loadedData = SaveAndLoadSystem.LoadData<List<Item>>("Assets/SaveData/Inventory.json");
-        LoadSavedInventory(loadedData, InventorySystem.Instance.allItemsList);
+        Instance = this;
+        
     }
 
-    private void LoadSavedInventory(List<Item> loadedData, List<Item> originalItems)
+    private void Start()
     {
-        foreach (var item in originalItems)
-        {
-            var it = loadedData.Find(x => x.name == item.name);
-            if (it != null) item.CurrentCount = it.CurrentCount;
-        }
-        InventorySystem.Instance.LoadInventory();
+        LoadProgress();
+    }
+
+    public void LoadProgress()
+    {
+        var loadedData = SaveAndLoadSystem.Instance.LoadData();
+        SaveAndLoadSystem.ApplySaveData(loadedData);
     }
     
-    public void SaveInventory()
+    public void SaveProgress()
     {
-        SaveAndLoadSystem.SaveData("Assets/SaveData/Inventory.json", InventorySystem.Instance.allItemsList);
+        SaveAndLoadSystem.Instance.SaveGame(false);
     }
-    [Button("Save Start pack")]
-    public void SaveStartInventory()
-    {
-        SaveAndLoadSystem.SaveData("Assets/SaveData/StartInventory.json", InventorySystem.Instance.allItemsList);
-    }
+    
 }

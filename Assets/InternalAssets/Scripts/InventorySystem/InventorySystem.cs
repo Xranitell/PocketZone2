@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public delegate void VoidMethod(InventoryCell cell);
@@ -11,26 +12,31 @@ public delegate void VoidMethod(InventoryCell cell);
 [Serializable]
 public class InventorySystem : MonoBehaviour
 {
+    
+    public UnityAction OnGlobalItemUpdated;
+    public UnityAction<InventoryCell> OnSelectedCellChanged;
+    
+    
     public List<InventoryCell> cells = new List<InventoryCell>();
     public List<Item> allItemsList = new List<Item>();
 
-    [SerializeField] private GameObject infoPanel;
-    [SerializeField] private TMP_Text name;
-    [SerializeField] private Image image;
-    [SerializeField] private TMP_Text description;
-    [SerializeField] private TMP_Text count;
+    [SerializeField] private InfoPanel panel;
 
     public InventoryCell selectedCell;
+    
     public static InventorySystem Instance;
     private void Awake()
     {
         Instance = this;
         allItemsList = Resources.LoadAll<Item>("Items").ToList();
-        LoadInventory();
+        
+        OnGlobalItemUpdated += UpdateInventory;
     }
 
-    public void LoadInventory()
+    public void UpdateInventory()
     {
+        ClearAllCells();
+        
         var counter = 0;
         foreach (var item in allItemsList)
         {
@@ -42,32 +48,22 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    public void CellClickHandler(InventoryCell cell)
+    private void ClearAllCells()
     {
-        if (cell.ItemInCell != null)
+        foreach (var cell in cells)
         {
-            infoPanel.SetActive(true);
-            selectedCell = cell;
-            GetInfoAboutItem(selectedCell.ItemInCell);
-        }
-        else
-        {
-            infoPanel.SetActive(false);
+            cell.ItemInCell = null;
         }
     }
 
-    private void GetInfoAboutItem(Item item)
+    public void CellClickHandler(InventoryCell cell)
     {
-        name.text = item.name;
-        image.sprite = item.sprite;
-        description.text = item.description;
-        count.text = item.CurrentCount + "/" + item.maxCount;
+        selectedCell = cell;
     }
-    
+
     public void ClearSelectedCell()
     {
-        infoPanel.SetActive(false);
         selectedCell.ClearCell();
-        LoadInventory();
+        UpdateInventory();
     }
 }

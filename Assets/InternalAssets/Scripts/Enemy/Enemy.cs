@@ -83,7 +83,6 @@ public class Enemy : Entity, ITargetable, IWatcher
     protected override void OnEnable()
     {
         base.OnEnable();
-        ActiveMonsters.Add(this);
     }
 
     private void OnDisable()
@@ -108,6 +107,9 @@ public class Enemy : Entity, ITargetable, IWatcher
     {
         foreach (var item in Loot)
         {
+            // добавить проверку на количество
+            
+            
             float randomValue = (float)Random.Range(0f,1f);
             if (randomValue <= item.DropChance)
             {

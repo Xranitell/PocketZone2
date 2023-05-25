@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
             
             for (int i = 0; i < countInWave; i++)
             {
-                if (EnemiesList.Count >= maxEnemyCount) continue;
+                if (Enemy.ActiveMonsters.Count >= maxEnemyCount) continue;
                 Enemy enemyPrefab = GetRandomByPriority();
                 SpawnEnemy(enemyPrefab,randomPoint);
             }
@@ -64,6 +64,7 @@ public class EnemySpawner : MonoBehaviour
             Random.Range(-additiveOffsetRadius, additiveOffsetRadius),
             Random.Range(-additiveOffsetRadius, additiveOffsetRadius)
         );
+        Enemy.ActiveMonsters.Add(enemy);
         enemy.transform.position = position + additiveOffset;
         enemy.gameObject.SetActive(true);
     }

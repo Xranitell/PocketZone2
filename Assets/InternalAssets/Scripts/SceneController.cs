@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
     [SerializeField] private Image fade;
     [SerializeField] private float animationDuration;
@@ -20,8 +20,6 @@ public class MenuManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        var content = File.ReadAllText("Assets/SaveData/StartInventory.json");
-        File.WriteAllText("Assets/SaveData/Inventory.json",content);
         LoadExistGame();
     }
 
@@ -35,6 +33,7 @@ public class MenuManager : MonoBehaviour
     public void QuitGame()
     {
         DOTween.Sequence()
+            .AppendCallback(()=> GameManager.Instance.SaveProgress())
             .Append(fade.DOFade(1, animationDuration))
             .AppendCallback(()=>Application.Quit());
     }
