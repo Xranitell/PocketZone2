@@ -6,25 +6,27 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
-    public static ObjectPull<DropItem> DropPull = new ObjectPull<DropItem>();
+
     public Item itemData;
 
-    [SerializeField] SpriteRenderer renderer;
-    
-    
+    [SerializeField] SpriteRenderer spriteRenderer;
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
         {
             itemData.CurrentCount += itemData.dropCount;
             gameObject.SetActive(false);
-            DropPull.PushToPull(this);
+            DataHolder.DropPull.PushToPull(this);
         }
     }
 
-    public void Configure()
+    private void OnEnable() => DataHolder.ActiveDrop.Add(this);
+    private void OnDisable() => DataHolder.ActiveDrop.Remove(this);
+
+        public void Configure()
     {
         gameObject.SetActive(true);
-        renderer.sprite = itemData.sprite;
+        spriteRenderer.sprite = itemData.sprite;
     }
 }

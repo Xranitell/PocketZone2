@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rigidbody2D;
+    [SerializeField] private Rigidbody2D rb;
     public float speed = 1f;
     public int damage = 3;
     public float bulletLifeTime = 2f;
-    private float timer;
+    private float _timer;
 
     public Gun parentGun;
     
@@ -22,9 +22,9 @@ public class Bullet : MonoBehaviour
 
     private void DeathTimer()
     {
-        timer -= Time.deltaTime;
+        _timer -= Time.deltaTime;
         
-        if (timer <= 0)
+        if (_timer <= 0)
         {
             ReturnToPull();
         }
@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        rigidbody2D.velocity = transform.right * speed;
+        rb.velocity = transform.right * speed;
     }
     public void ReturnToPull()
     {
@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        timer = bulletLifeTime;
+        _timer = bulletLifeTime;
     }
 
     

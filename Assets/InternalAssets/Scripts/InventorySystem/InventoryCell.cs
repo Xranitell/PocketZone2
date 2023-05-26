@@ -68,5 +68,6 @@ public class InventoryCell : MonoBehaviour
     {
         _itemInCell.CurrentCount = 0;
         _itemInCell = null;
+        InventorySystem.Instance.OnSelectedCellChanged.Invoke(null);
     }
 }

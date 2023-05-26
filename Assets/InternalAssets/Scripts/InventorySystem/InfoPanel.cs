@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class InfoPanel: MonoBehaviour
 {
-    [SerializeField] private TMP_Text name;
-    [SerializeField] private Image image;
-    [SerializeField] private TMP_Text description;
-    [SerializeField] private TMP_Text count;
+    [SerializeField] private TMP_Text infoName;
+    [SerializeField] private Image infoImage;
+    [SerializeField] private TMP_Text infoDescription;
+    [SerializeField] private TMP_Text infoCount;
 
-    private Item lastShowedItem;
+    private Item _lastShowedItem;
     
     private void Awake()
     {
@@ -21,23 +21,23 @@ public class InfoPanel: MonoBehaviour
 
     private void GetInfoAboutItem(InventoryCell cell)
     {
-        lastShowedItem= cell.ItemInCell;
-        if (lastShowedItem == null)
+        _lastShowedItem= cell.ItemInCell;
+        if (_lastShowedItem == null)
         {
             this.gameObject.SetActive(false);
         }
         else
         {
             this.gameObject.SetActive(true);
-            name.text = lastShowedItem.name;
-            image.sprite = lastShowedItem.sprite;
-            description.text = lastShowedItem.description;
-            count.text = lastShowedItem.CurrentCount + "/" + lastShowedItem.maxCount;
+            infoName.text = _lastShowedItem.itemName;
+            infoImage.sprite = _lastShowedItem.sprite;
+            infoDescription.text = _lastShowedItem.description;
+            infoCount.text = _lastShowedItem.CurrentCount + "/" + _lastShowedItem.maxCount;
         }
     }
 
     public void DeleteItem()
     {
-        lastShowedItem.CurrentCount = 0;
+        _lastShowedItem.CurrentCount = 0;
     }
 }

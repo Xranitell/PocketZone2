@@ -13,7 +13,11 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class Item : ScriptableObject, IDroppable
 {
+    public static int maxCountOfDrops = 10;
+    
     public UnityAction OnLocalItemUpdated;
+
+    public string itemName;
     public string description;
     public Sprite sprite;
     public bool EnableInInventory => _currentCount > 0 ? true : false;
@@ -51,10 +55,12 @@ public class Item : ScriptableObject, IDroppable
     
     private int _currentCount;
     
-    public DropItem CreateDropItem(Vector3 position)
+    public void CreateDropItem(Vector3 position)
     {
-        var item = DropItem.DropPull.Count > 0 ? 
-            DropItem.DropPull.GetFromPull() : 
+        if (DataHolder.ActiveDrop.Count >= maxCountOfDrops) return;
+        
+        var item = DataHolder.DropPull.Count > 0 ? 
+            DataHolder.DropPull.GetFromPull() : 
             Instantiate(dropItemPrefab, position, dropItemPrefab.transform.rotation);
 
         item.itemData = this;
@@ -62,7 +68,6 @@ public class Item : ScriptableObject, IDroppable
         
         item.transform.position = position + (Vector3)offset;
         item.Configure();
-        return item;
     }
 }
     

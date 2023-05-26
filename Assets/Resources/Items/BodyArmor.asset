@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0450555f1c03b544acfd5eaa9b239e2, type: 3}
   m_Name: BodyArmor
   m_EditorClassIdentifier: 
-  name: 
   description: 
   sprite: {fileID: 21300000, guid: d811afb0d42fed140806f31df436fbda, type: 3}
   dropItemPrefab: {fileID: 1018620839227304581, guid: 0f279c3dd24896a42ae5b237ee1277ab, type: 3}

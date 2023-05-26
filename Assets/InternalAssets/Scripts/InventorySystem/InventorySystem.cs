@@ -16,7 +16,6 @@ public class InventorySystem : MonoBehaviour
     public UnityAction OnGlobalItemUpdated;
     public UnityAction<InventoryCell> OnSelectedCellChanged;
     
-    
     public List<InventoryCell> cells = new List<InventoryCell>();
     public List<Item> allItemsList = new List<Item>();
 

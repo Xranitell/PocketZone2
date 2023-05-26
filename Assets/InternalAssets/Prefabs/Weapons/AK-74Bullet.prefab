@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8614511761918072308}
   - component: {fileID: 6468629953025909197}
   - component: {fileID: 6045632932276378162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AK-74Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b31482142cc9574ebb4c28a5924d4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody2D: {fileID: -4684340874332684527}
+  rb: {fileID: -4684340874332684527}
   speed: 5
-  damage: 3
+  damage: 2
   bulletLifeTime: 1
   parentGun: {fileID: 0}
 --- !u!96 &6468629953025909197

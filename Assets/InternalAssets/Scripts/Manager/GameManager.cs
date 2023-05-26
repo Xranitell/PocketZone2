@@ -5,16 +5,19 @@ using System.IO;
 using NaughtyAttributes;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get;private set; }
-
+    [SerializeField] private UnityEvent eventsAfterDeath;
     private void Awake()
     {
         Instance = this;
-        
+        Player.Instance.OnDead += EndGame;
     }
+
+    private void EndGame() => eventsAfterDeath.Invoke();
 
     private void Start()
     {

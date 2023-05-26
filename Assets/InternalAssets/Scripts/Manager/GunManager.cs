@@ -1,18 +1,42 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GunManager : MonoBehaviour
 {
     [SerializeField] private SearchTargets searchTargets;
-    
+
     public List<Weapon> weapons = new List<Weapon>();
-    public Weapon currentWeapon;
+
+
+    public UnityAction<Weapon> OnCurrentWeaponChanged;
+        
+    private Weapon _currentWeapon;
+    public Weapon currentWeapon
+    {
+        get => _currentWeapon;
+        set
+        {
+            _currentWeapon = value;
+            OnCurrentWeaponChanged.Invoke(_currentWeapon);
+        }
+    }
+
+    
+    
     public static bool ShootModeEnabled { get; protected set; }
     
     private int counter;
-    
+
+    private void Start()
+    {
+        currentWeapon = weapons[0];
+    }
+
     //активирует режим нацеливания и стрельбы
     public void EnableShootMode(bool state)
     {

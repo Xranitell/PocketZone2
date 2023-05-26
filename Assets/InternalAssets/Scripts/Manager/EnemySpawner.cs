@@ -9,8 +9,6 @@ using Vector2 = System.Numerics.Vector2;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static ObjectPull<Enemy> enemyPull = new ObjectPull<Enemy>();
-    
     [SerializeField ]private List<Enemy> EnemiesList = new List<Enemy>();
 
     [BoxGroup("Spawn params")] [SerializeField] private AnimationCurve delayBetweenWaves;
@@ -19,9 +17,13 @@ public class EnemySpawner : MonoBehaviour
     [BoxGroup("Spawn params")][SerializeField] private int maxEnemyCount = 10;
     
     [SerializeField] private Transform enemyContainer;
+    private Camera _camera;
+    public float spawnOffsetMultiplier = 1f;
     
     private void Awake()
     {
+        _camera = Camera.main;
+        
         StartCoroutine(SpawnEnemies());
     }
 
@@ -29,30 +31,53 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
+            int enemyCountInWave = Mathf.RoundToInt(this.countInWave.Evaluate(Time.time));
             
-            int countInWave = Mathf.RoundToInt(this.countInWave.Evaluate(Time.time));
-            /////////////////////////////////////
-            Vector3 randomPoint = Vector3.zero;
-            ////////////////////////////////////
-            
-            
-            for (int i = 0; i < countInWave; i++)
+            for (int i = 0; i < enemyCountInWave; i++)
             {
-                if (Enemy.ActiveMonsters.Count >= maxEnemyCount) continue;
+                if (DataHolder.ActiveEnemies.Count >= maxEnemyCount) continue;
                 Enemy enemyPrefab = GetRandomByPriority();
-                SpawnEnemy(enemyPrefab,randomPoint);
+                SpawnEnemy(enemyPrefab,GetSpawnPoint());
             }
 
             yield return new WaitForSeconds(delayBetweenWaves.Evaluate(Time.time));
         }
     }
 
+    public Vector3 GetSpawnPoint()
+    {
+        Vector3 topLeft = _camera.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+        Vector3 bottomRight = _camera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
+        
+        Vector3 topRight = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        Vector3 bottomLeft = _camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+
+        int random = Random.Range(0, 4);
+
+        Vector3 pos;
+        
+        switch (random)
+        {
+            case 0: pos = topLeft;
+                break;
+            case 1: pos = bottomRight;
+                break;
+            case 2: pos = topRight;
+                break;
+            default: pos = bottomLeft;
+                break;
+        }
+
+        pos.z = 0;
+        return pos * spawnOffsetMultiplier;
+    }
+    
     private void SpawnEnemy(Enemy enemyType, Vector3 position)
     {
         Enemy enemy;
-        if (enemyPull.Count > 0)
+        if (DataHolder.EnemyPull.Count > 0)
         {
-            enemy = enemyPull.GetFromPull(enemyType);
+            enemy = DataHolder.EnemyPull.GetFromPull(enemyType);
         }
         else
         {
@@ -64,7 +89,8 @@ public class EnemySpawner : MonoBehaviour
             Random.Range(-additiveOffsetRadius, additiveOffsetRadius),
             Random.Range(-additiveOffsetRadius, additiveOffsetRadius)
         );
-        Enemy.ActiveMonsters.Add(enemy);
+        
+        DataHolder.ActiveEnemies.Add(enemy);
         enemy.transform.position = position + additiveOffset;
         enemy.gameObject.SetActive(true);
     }
