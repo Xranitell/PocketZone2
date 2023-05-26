@@ -7,26 +7,22 @@ using UnityEngine;
 [Serializable]
 public class AttackEnemyState : EnemyState
 {
-    private float timer;
-    private IDamaged target;
-    
+    private float _timer;
+
     public override void Init()
     {
-        Debug.Log( "Damage!");
-        isFinished = false;
+        character.animator.SetTrigger("Attack");
+        IsFinished = false;
         base.Init();
-        target= character.searchTargets.currentTarget.GetComponent<IDamaged>();
-        
-        target.GetDamage(character.damageAttack);
     }
 
     public override void Run()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0)
+        _timer -= Time.deltaTime;
+        if (_timer <= 0)
         {
-            timer = character.delayAttack;
-            isFinished = true;
+            _timer = character.delayAttack;
+            IsFinished = true;
         }
     }
 }

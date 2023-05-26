@@ -10,6 +10,7 @@ public class Gun : Weapon
 
     [SerializeField] private float delayBetweenShots = 0.25f;
     [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private float shakeIntensity = 0.05f;
     public Ammo ammoType;
     [SerializeField] private int bulletsPerShot = 1;
 
@@ -40,14 +41,13 @@ public class Gun : Weapon
     
     private void GenerateBullet()
     {
-        DataHolder.Camera.DOShakePosition(0.05f, delayBetweenShots/5);
+        DataHolder.Camera.DOShakePosition(0.02f, shakeIntensity);
         var bullet = bulletPull.Pull.Count > 0 ? bulletPull.GetFromPull() : Instantiate(bulletPrefab,bulletSpawnPoint.position,bulletSpawnPoint.rotation ,bulletContainer);
         
         bullet.transform.position = bulletSpawnPoint.position;
         bullet.transform.rotation = bulletSpawnPoint.rotation;
         
         bullet.parentGun = this;
-        Debug.Log("BulletActivate");
         bullet.gameObject.SetActive(true);
     }
     

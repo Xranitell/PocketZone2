@@ -187,6 +187,7 @@ MonoBehaviour:
   maxHealth: 20
   targetMark: {fileID: 4453679055189759122}
   searchTargets: {fileID: -841013808828057277}
+  animator: {fileID: 7916758160457887631}
   spawnPriority: 50
   seeDistance: 3
   speed: 0.4
@@ -227,7 +228,7 @@ Animator:
   m_GameObject: {fileID: 5969998693428790014}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ccd1c6ce19976af4c866fc6579eb62ba, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

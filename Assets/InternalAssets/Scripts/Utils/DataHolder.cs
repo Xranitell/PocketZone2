@@ -14,6 +14,7 @@ public class DataHolder : MonoBehaviour
     private void Awake()
     {
         Camera = Camera.main;
+
         DropPull.Clear();
         EnemyPull.Clear();
         ActiveDrop.Clear();

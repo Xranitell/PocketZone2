@@ -11,7 +11,7 @@ public class SaveAndLoadSystem: MonoBehaviour
     public static SaveAndLoadSystem Instance { get; set; }
     public SaveData defaultSaveData;
 
-    public static SaveData Data4Save
+    private static SaveData Data4Save
     {
         get
         {

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         rb.velocity = InputHandler.MoveVector * speed;
+        Player.Instance.animator.SetBool("Walk", InputHandler.MoveVector != Vector3.zero);
     }
 
 }

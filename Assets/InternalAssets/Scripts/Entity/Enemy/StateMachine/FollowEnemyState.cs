@@ -9,13 +9,13 @@ public class FollowEnemyState : EnemyState
     public Transform target;
     public override void Init()
     {
-        isFinished = false;
+        IsFinished = false;
         target = character.searchTargets.currentTarget.transform;
     }
 
     public override void Run()
     {
-        if(isFinished)
+        if(IsFinished)
             return;
         MoveToTarget();
     }
@@ -26,7 +26,7 @@ public class FollowEnemyState : EnemyState
         var distance = (targetPos - character.transform.position).magnitude;
         if (distance < character.stopDistance || distance > character.SeeDistance)
         {
-            isFinished = true;
+            IsFinished = true;
         }
         else
         {

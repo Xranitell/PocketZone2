@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float damping = 1.5f; // movement speed
-    public Vector2 offset = new Vector2(0f, 0f); // special effect if you want the character to be not in center of screen
-    public bool faceLeft; //  mirror reflection of OFFSET along the y axis
+    public float damping = 1.5f;
+    public Vector2 offset = new Vector2(0f, 0f); 
+    public bool faceLeft; 
     private Transform player;
     private int lastX;
 
@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     public void FindPlayer(bool playerFaceLeft)
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = Player.Instance.transform;
         lastX = Mathf.RoundToInt(player.position.x);
         if (playerFaceLeft)
         {

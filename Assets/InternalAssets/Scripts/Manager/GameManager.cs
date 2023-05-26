@@ -14,13 +14,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Player.Instance.OnDead += EndGame;
     }
-
     private void EndGame() => eventsAfterDeath.Invoke();
 
     private void Start()
     {
+        Player.Instance.OnDead += EndGame;
         LoadProgress();
     }
 

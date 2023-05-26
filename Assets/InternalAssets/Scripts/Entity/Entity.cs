@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 
 public abstract class Entity : MonoBehaviour, IDamaged
 {
+    public UnityAction OnCurrentHealthChanged;
+    public UnityAction OnDead;
+    
     public float maxHealth;
     
     [ShowNonSerializedField]private float _currentHealth;
@@ -27,10 +30,7 @@ public abstract class Entity : MonoBehaviour, IDamaged
             }
         }
     }
-
-    public UnityAction OnCurrentHealthChanged;
-    public UnityAction OnDead;
-
+    
     public virtual void GetDamage(float damage)
     {
         CurrentHealth -= damage;

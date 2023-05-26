@@ -9,6 +9,7 @@ public class Enemy : Entity, ITargetable, IWatcher
 {
     [BoxGroup("Components")] [SerializeField] private GameObject targetMark;
     [BoxGroup("Components")] public SearchTargets searchTargets;
+    [BoxGroup("Components")] public Animator animator;
 
     [Header("Stats")]
     public float spawnPriority = 50;
@@ -24,19 +25,19 @@ public class Enemy : Entity, ITargetable, IWatcher
     [BoxGroup("StateMachine")] public EnemyState _currentState;
     [BoxGroup("StateMachine")] public EnemyState _startState;
     
-    [BoxGroup("StateMachine")][SerializeField] private AttackEnemyState attackEnemyState;
-    [BoxGroup("StateMachine")][SerializeField] private FollowEnemyState followEnemyState;
-    [BoxGroup("StateMachine")][SerializeField] private IdleEnemyState idleEnemyState;
+    private AttackEnemyState _attackEnemyState;
+    private FollowEnemyState _followEnemyState;
+    private IdleEnemyState _idleEnemyState;
     
     [Expandable]public List<Item> loot = new List<Item>();
     public float SeeDistance => seeDistance;
 
     protected void Awake()
     {
-        attackEnemyState = new AttackEnemyState();
-        followEnemyState = new FollowEnemyState();
-        idleEnemyState = new IdleEnemyState();
-        _startState = idleEnemyState;
+        _attackEnemyState = new AttackEnemyState();
+        _followEnemyState = new FollowEnemyState();
+        _idleEnemyState = new IdleEnemyState();
+        _startState = _idleEnemyState;
         
         OnDead += DropLoot;
     }
@@ -48,18 +49,18 @@ public class Enemy : Entity, ITargetable, IWatcher
 
     private void Update()
     {
-        if (!_currentState.isFinished)
+        if (!_currentState.IsFinished)
         {
             _currentState.Run();
         }
         else
         {
             if (searchTargets.currentTarget == null)
-                SetState(idleEnemyState);
+                SetState(_idleEnemyState);
             else if (Vector3.Distance(transform.position + (Vector3)attackCenterOffset, searchTargets.currentTarget.transform.position) <= attackDistance)
-                SetState(attackEnemyState);
+                SetState(_attackEnemyState);
             else 
-                SetState(followEnemyState);
+                SetState(_followEnemyState);
         }
     }
 
@@ -68,6 +69,11 @@ public class Enemy : Entity, ITargetable, IWatcher
         _currentState = state;
         _currentState.character = this;
         _currentState.Init();
+    }
+
+    public void Attack()
+    {
+        searchTargets.currentTarget?.GetComponent<IDamaged>().GetDamage(damageAttack);
     }
 
     public void ChooseAsTarget()
@@ -96,7 +102,7 @@ public class Enemy : Entity, ITargetable, IWatcher
         transform.rotation = rot;
     }
 
-    protected void DropLoot()
+    private void DropLoot()
     {
         foreach (var item in loot)
         {
@@ -117,7 +123,6 @@ public class Enemy : Entity, ITargetable, IWatcher
         
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + (Vector3)attackCenterOffset, attackDistance);
-        
     }
 }
 

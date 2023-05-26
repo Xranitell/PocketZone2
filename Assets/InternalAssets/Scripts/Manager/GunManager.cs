@@ -8,15 +8,13 @@ using UnityEngine.UI;
 
 public class GunManager : MonoBehaviour
 {
+    public UnityAction<Weapon> OnCurrentWeaponChanged;
     [SerializeField] private SearchTargets searchTargets;
 
     public List<Weapon> weapons = new List<Weapon>();
-
-
-    public UnityAction<Weapon> OnCurrentWeaponChanged;
-        
+    
     private Weapon _currentWeapon;
-    public Weapon currentWeapon
+    public Weapon CurrentWeapon
     {
         get => _currentWeapon;
         set
@@ -25,16 +23,13 @@ public class GunManager : MonoBehaviour
             OnCurrentWeaponChanged.Invoke(_currentWeapon);
         }
     }
-
+    public static bool ShootModeEnabled { get; private set; }
     
-    
-    public static bool ShootModeEnabled { get; protected set; }
-    
-    private int counter;
+    private int _counter;
 
     private void Start()
     {
-        currentWeapon = weapons[0];
+        CurrentWeapon = weapons[0];
     }
 
     //активирует режим нацеливания и стрельбы
@@ -45,10 +40,10 @@ public class GunManager : MonoBehaviour
 
     public void SetNextWeapon()
     {
-        counter++;
-        currentWeapon.gameObject.SetActive(false);
-        currentWeapon = weapons[counter % weapons.Count];
-        currentWeapon.gameObject.SetActive(true);
+        _counter++;
+        CurrentWeapon.gameObject.SetActive(false);
+        CurrentWeapon = weapons[_counter % weapons.Count];
+        CurrentWeapon.gameObject.SetActive(true);
     }
     
     private void Update()
@@ -57,7 +52,7 @@ public class GunManager : MonoBehaviour
 
         if (ShootModeEnabled)
         {
-            currentWeapon.Attack(); //вызов переопределенного абстрактного метода класса Weapon
+            CurrentWeapon.Attack(); //вызов переопределенного абстрактного метода класса Weapon
         }
     }
 
@@ -68,7 +63,7 @@ public class GunManager : MonoBehaviour
             var diff = searchTargets.GetDifferenceToTarget();
             float rotZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
-            Vector3 scale = currentWeapon.transform.localScale;
+            Vector3 scale = CurrentWeapon.transform.localScale;
             
             if (rotZ > 90 || rotZ < -90)
             {
@@ -79,8 +74,8 @@ public class GunManager : MonoBehaviour
             {
                 scale.y = MathF.Abs(scale.y);
             }
-            currentWeapon.transform.localScale = scale;
-            currentWeapon.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+            CurrentWeapon.transform.localScale = scale;
+            CurrentWeapon.transform.rotation = Quaternion.Euler(0, 0, rotZ);
             
         }
     }

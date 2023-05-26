@@ -38,6 +38,7 @@ public class HealthDisplay : MonoBehaviour
 
     private void OnEnable()
     {
+        _healthBarImage.transform.position = _camera.WorldToScreenPoint(_tetherEntity.transform.position) + (Vector3)offset;
         _healthBarImage.gameObject.SetActive(true);
     }
 

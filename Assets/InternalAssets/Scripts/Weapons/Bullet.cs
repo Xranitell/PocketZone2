@@ -12,8 +12,6 @@ public class Bullet : MonoBehaviour
     private float _timer;
 
     public Gun parentGun;
-    
-    public string ObjectName { get; set; }
     private void Update()
     {
         Move();
