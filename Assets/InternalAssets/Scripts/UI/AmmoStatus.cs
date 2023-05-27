@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class AmmoStatus : MonoBehaviour
 {
-    private GunManager _gunManager;
+    private WeaponManager _weaponManager;
     [Header("Ammo status")]
     [SerializeField] private Image ammoImage;
     [SerializeField] private TMP_Text ammoCount;
@@ -16,8 +16,8 @@ public class AmmoStatus : MonoBehaviour
     private Ammo _cachedAmmo;
     private void Awake()
     {
-        _gunManager = FindObjectOfType<GunManager>();
-        _gunManager.OnCurrentWeaponChanged += UpdateAmmoStaus;
+        _weaponManager = FindObjectOfType<WeaponManager>();
+        _weaponManager.OnCurrentWeaponChanged += UpdateAmmoStaus;
     }
 
     private void UpdateAmmoStaus(Weapon weapon)

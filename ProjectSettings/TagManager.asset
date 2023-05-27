@@ -16,7 +16,7 @@ TagManager:
   - GroundCheck
   - Bullet
   - Drop
-  - 
+  - Barrier
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Effects
     uniqueID: 1120276975
+    locked: 0
+  - name: MapOver
+    uniqueID: 1786295395
     locked: 0

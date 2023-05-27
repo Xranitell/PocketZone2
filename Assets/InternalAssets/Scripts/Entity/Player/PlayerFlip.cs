@@ -11,7 +11,7 @@ public class PlayerFlip : MonoBehaviour
     {
         bool isRight = cachedRotation;
         
-        if (GunManager.ShootModeEnabled 
+        if (WeaponManager.ShootModeEnabled 
             && searchTargets.currentTarget != null)
         {
             isRight = IsRightDirection(searchTargets.GetDifferenceToTarget().normalized.x);

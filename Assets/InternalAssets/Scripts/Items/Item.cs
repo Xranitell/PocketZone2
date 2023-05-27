@@ -13,21 +13,22 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class Item : ScriptableObject
 {
-    public static int maxCountOfDrops = 10;
-    
+    public static int MaxCountOfDrops = 10;
     public UnityAction OnLocalItemUpdated;
 
-    public string itemName;
-    public string description;
-    public Sprite sprite;
+    [BoxGroup ("Item info")] public string itemName;
+    [BoxGroup ("Item info")][ResizableTextArea] public string description;
+    [ShowAssetPreview(128, 128)][BoxGroup ("Item info")] public Sprite sprite; 
     public bool EnableInInventory => _currentCount > 0 ? true : false;
-    public DropItem dropItemPrefab;
+    [BoxGroup ("Drop settings")] public DropItem dropItemPrefab;
 
-    [SerializeField] [Range(0,1)] protected float dropChance = 1f;
+    [BoxGroup ("Drop settings")][SerializeField] [Range(0,1)] protected float dropChance = 1f;
     
-    public bool isStackable = true;
-    [EnableIf("isStackable")]public int maxCount = 1;
-    [EnableIf("isStackable")]public int dropCount = 1;
+    [OnValueChanged("IsStackableChanged")][BoxGroup ("Counter")]public bool isStackable = true;
+    private void IsStackableChanged() => maxCount = 1;
+    
+    [BoxGroup ("Counter")][EnableIf("isStackable")]public int maxCount = 1;
+    [BoxGroup ("Drop settings")][EnableIf("isStackable")]public int dropCount = 1;
     public float DropChance => dropChance;
     public float DropOffset { get; set; } = 0.2f;
 
@@ -57,7 +58,7 @@ public class Item : ScriptableObject
     
     public void CreateDropItem(Vector3 position)
     {
-        if (DataHolder.ActiveDrop.Count >= maxCountOfDrops) return;
+        if (DataHolder.ActiveDrop.Count >= MaxCountOfDrops) return;
         
         var item = DataHolder.DropPull.Count > 0 ? 
             DataHolder.DropPull.GetFromPull() : 

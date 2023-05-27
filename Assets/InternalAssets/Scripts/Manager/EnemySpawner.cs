@@ -13,12 +13,11 @@ public class EnemySpawner : MonoBehaviour
 
     [BoxGroup("Spawn params")] [SerializeField] private AnimationCurve delayBetweenWaves;
     [BoxGroup("Spawn params")] [SerializeField] private AnimationCurve countInWave;
-    [BoxGroup("Spawn params")] [SerializeField] private float additiveOffsetRadius = 0.1f;
-    [BoxGroup("Spawn params")][SerializeField] private int maxEnemyCount = 10;
-    
+    [BoxGroup("Spawn params")] [SerializeField] private int maxEnemyCount = 10;
+    [BoxGroup("Spawn params")] [SerializeField] private float spawnOffsetMultiplier = 1f;
     [SerializeField] private Transform enemyContainer;
     private Camera _camera;
-    public float spawnOffsetMultiplier = 1f;
+    
     
     private void Awake()
     {
@@ -84,14 +83,8 @@ public class EnemySpawner : MonoBehaviour
             enemy = Instantiate(enemyType, enemyContainer);
         }
 
-        Vector3 additiveOffset = new Vector3
-        (
-            Random.Range(-additiveOffsetRadius, additiveOffsetRadius),
-            Random.Range(-additiveOffsetRadius, additiveOffsetRadius)
-        );
-        
         DataHolder.ActiveEnemies.Add(enemy);
-        enemy.transform.position = position + additiveOffset;
+        enemy.transform.position = position;
         enemy.gameObject.SetActive(true);
     }
     

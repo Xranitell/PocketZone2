@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class GunManager : MonoBehaviour
+public class WeaponManager : MonoBehaviour
 {
     public UnityAction<Weapon> OnCurrentWeaponChanged;
     [SerializeField] private SearchTargets searchTargets;
