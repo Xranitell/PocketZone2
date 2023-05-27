@@ -56,6 +56,7 @@ PocketZone2
 ![image](https://github.com/Xranitell/PocketZone2/assets/65007471/3a6e27f9-bed7-41f2-9f33-c800e34b1dda)
 ## Смена оружия
 В игре предусмотрена смена оружия. За это отвечает WeaponManager, который принимает объекты типа Weapon
+
 ![image](https://github.com/Xranitell/PocketZone2/assets/65007471/9cfd29cf-23f8-409b-a62c-1fa86bff17d4)
 
 На данный момент в игре реализовано 2 огнестрельных оружия, которые представлены классом Gun производный от Weapon. У оружия можно настроить следующие параметры:
