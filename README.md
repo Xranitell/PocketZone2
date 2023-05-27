@@ -73,4 +73,6 @@ PocketZone2
 
 ![image](https://github.com/Xranitell/PocketZone2/assets/65007471/0cc064f9-2f98-40ab-9569-053a827e26aa)
 
+Так же визуально отображается состояние патронов в верхнем левом углу (Их спрайт и количество)
 
+![image](https://github.com/Xranitell/PocketZone2/assets/65007471/fa7c2e1c-a258-4193-b2b0-83c0d854434e)
